@@ -1,4 +1,4 @@
-# Zephyr RTOS Setup for nRF52840 Dongle on Raspberry Pi
+# Automated Installaion of Complete Zephyr RTOS Development Environment on Raspberry Pi
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Zephyr Version](https://img.shields.io/badge/Zephyr-4.3-blue)](https://zephyrproject.org/)

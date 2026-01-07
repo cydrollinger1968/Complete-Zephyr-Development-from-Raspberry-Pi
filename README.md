@@ -7,6 +7,7 @@
 
 Cutting-edge automated setup for developing Zephyr RTOS applications on the Nordic nRF52840 USB Dongle (PCA10059) using a Raspberry Pi as the host. No soldering, no external probes—just GPIO SWD for initial MCUboot flash and USB DFU for seamless updates. Perfect for BLE/Thread/Mesh prototyping, swarm projects, and scaling to 800+ boards.
 
+![Descriptive alt text for the image](wiring.png)
 
 
 

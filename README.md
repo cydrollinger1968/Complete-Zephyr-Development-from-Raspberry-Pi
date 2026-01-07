@@ -67,7 +67,8 @@ For custom apps: Build with `-DCONFIG_BOOTLOADER_MCUBOOT=y`, sign, and upload vi
     ├── build/blinky/          # Blinky build
     └── ...                    # Zephyr sources
 ```
-
+## Bill of Materials
+https://www.digikey.com/short/p804r9wf
 ## Contributing
 Fork, PRs welcome! Add multi-dongle batch flashing, mesh samples, or RPi 5 optimizations. Issues for bugs/suggestions.
 

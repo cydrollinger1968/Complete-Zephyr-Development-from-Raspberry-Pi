@@ -5,12 +5,7 @@
 [![Nordic nRF52840](https://img.shields.io/badge/Board-nRF52840-green)](https://www.nordicsemi.com/Products/nRF52840)
 [![Raspberry Pi](https://img.shields.io/badge/Host-Raspberry%20Pi-red)](https://www.raspberrypi.com/)
 
-<div id="paypal-container-JVET7MJ54B9DJ"></div>
-<script>
-  paypal.HostedButtons({
-    hostedButtonId: "JVET7MJ54B9DJ",
-  }).render("#paypal-container-JVET7MJ54B9DJ")
-</script>
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green?logo=paypal)](https://paypal.me//AMOUNT)
 
 Cutting-edge automated setup for developing Zephyr RTOS applications hosted on a Raspberry Pi. Nordic's nRF52840 USB dongle is the example hardware running blinky, but Zephyr RTOS development environment supports ~1k boards with endless firmware for embedded application solutions. No soldering, no external probes—just GPIO SWD for initial MCUboot flash and USB DFU for seamless updates. Perfect for BLE/Thread/Mesh prototyping, swarm projects, and scaling for remote development, utilizing ssh extention from your VScode. 
 

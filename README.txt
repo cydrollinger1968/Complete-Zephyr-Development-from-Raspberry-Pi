@@ -5,15 +5,7 @@
 [![Nordic nRF52840](https://img.shields.io/badge/Board-nRF52840-green)](https://www.nordicsemi.com/Products/nRF52840)
 [![Raspberry Pi](https://img.shields.io/badge/Host-Raspberry%20Pi-red)](https://www.raspberrypi.com/)
 
-<div id="paypal-container-JVET7MJ54B9DJ"></div>
-<script>
-  paypal.HostedButtons({
-    hostedButtonId: "JVET7MJ54B9DJ",
-  }).render("#paypal-container-JVET7MJ54B9DJ")
-</script>
-
-Cutting-edge automated setup for developing Zephyr RTOS applications on the Nordic nRF52840 USB Dongle (PCA10059) using a Raspberry Pi as the host. No soldering, no external probes—just GPIO SWD for initial MCUboot flash and USB DFU for seamless updates. Perfect for BLE/Thread/Mesh prototyping, swarm projects, and scaling to 800+ boards.
-
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id="JVET7MJ54B9DJ")
 
 
 

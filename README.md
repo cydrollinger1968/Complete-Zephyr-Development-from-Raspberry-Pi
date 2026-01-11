@@ -33,7 +33,7 @@ Cutting-edge automated setup for developing Zephyr RTOS applications hosted on a
 ## Installation
 1. Download and run the setup script:
    ```
-   wget https://raw.githubusercontent.com/cydrollinger1968/Complete-Zephyr-development-environment-on-Raspberry-Pi/refs/heads/main/setup-zephyr-dev-1.0.1.sh
+   wget https://raw.githubusercontent.com/cydrollinger1968/Complete-Zephyr-Development-from-Raspberry-Pi/refs/heads/main/setup-zephyr-dev-1.0.1.sh
    chmod +x setup-zephyr-dev-1.0.1.sh
    sudo ./setup-zephyr-dev-1.0.1.sh
    ```

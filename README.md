@@ -78,8 +78,8 @@ Fork, PRs welcome! Add multi-dongle batch flashing, mesh samples, or RPi 5 optim
 MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
+- xAI Grok for hammering out the script.
 - Zephyr Project for RTOS excellence.
-- Nordic Semiconductor for nRF52840.
 - Raspberry Pi for the perfect host.
 
 Star if useful—let's build wireless swarms! 🚀

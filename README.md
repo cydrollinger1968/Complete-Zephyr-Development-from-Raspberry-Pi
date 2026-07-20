@@ -19,7 +19,7 @@ Cutting-edge automated setup for developing Zephyr RTOS applications hosted on a
 - **SWD Flashing via RPi GPIO**: Use bitbang OpenOCD—no extra hardware needed.
 - **Multi-Dongle Ready**: Leverage Pi's 4 USB ports for parallel flashing/updates; scale to production volumes.
 - **No-Soldering Option**: Pogo pins or clips for SWD pads.
-- **Tested on Ubuntu's 25.10 Server OS**: From bare OS to blinking RGB LED in under an hour.
+- **Tested on Ubuntu's 24.04 Server OS**: From bare OS to blinking RGB LED in under an hour.
 
 ## Prerequisites
 - Raspberry Pi 5 running Ubuntu 24.04 Server.

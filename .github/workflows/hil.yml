@@ -13,7 +13,7 @@ on:
       board:
         description: Zephyr board id passed to west -b
         required: true
-        default: custom_nrf52832
+        default: nrf52dk/nrf52832
         type: string
       apps_dir:
         description: Absolute apps directory. Empty uses $HOME/zephyrproject/apps on the runner.
@@ -62,7 +62,7 @@ jobs:
     runs-on: [self-hosted, linux, ARM64, eink-mosaic]
     env:
       HIL_APP: ${{ github.event_name == 'workflow_dispatch' && inputs.app || 'mosaic_block_diagram' }}
-      HIL_BOARD: ${{ github.event_name == 'workflow_dispatch' && inputs.board || 'custom_nrf52832' }}
+      HIL_BOARD: ${{ github.event_name == 'workflow_dispatch' && inputs.board || 'nrf52dk/nrf52832' }}
       EINK_APPS_DIR: ${{ github.event_name == 'workflow_dispatch' && inputs.apps_dir || '' }}
       HIL_CAMERA_FRAMES: ${{ github.event_name == 'workflow_dispatch' && inputs.camera_frames || '4' }}
       HIL_CAMERA_SHUTTER: ${{ github.event_name == 'workflow_dispatch' && inputs.camera_shutter || '' }}

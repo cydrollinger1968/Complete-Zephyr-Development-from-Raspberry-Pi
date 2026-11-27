@@ -1,0 +1,61 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  hil-scripts:
+    name: Shellcheck and slot table
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install shellcheck
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq shellcheck
+
+      - name: Shellcheck
+        run: shellcheck scripts/hil/*.sh
+
+      - name: Validate slot table
+        run: |
+          python3 - <<'PY'
+          import json
+          import pathlib
+
+          path = pathlib.Path("ci/expected/slots.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          slots = data["slots"]
+          if set(slots) != {"A", "B", "C", "D"}:
+              raise SystemExit(f"unexpected slots: {sorted(slots)}")
+          if data["order"] != ["B", "A", "C", "D"]:
+              raise SystemExit("order must be tile order B, A, C, D")
+          if int(data["ficr_address"], 0) != 0x100000A4:
+              raise SystemExit("ficr_address must be DEVICEADDR[0]")
+          if int(data["flash_base"], 0) != 0:
+              raise SystemExit("flash_base must be 0")
+          if int(data["flash_bytes"], 0) <= 0:
+              raise SystemExit("flash_bytes must be positive")
+          tiles = set()
+          for letter, slot in slots.items():
+              int(slot["ficr"], 16)
+              if not str(slot["cfg"]).startswith("pi5-nrf52-swd"):
+                  raise SystemExit(f"{letter} cfg is not an SWD config")
+              tile = slot["tile"]
+              if not isinstance(tile, int) or tile in tiles:
+                  raise SystemExit(f"{letter} tile index is invalid")
+              tiles.add(tile)
+          if tiles != {0, 1, 2, 3}:
+              raise SystemExit(f"tile indexes must be 0..3, got {tiles}")
+          print("slots.json ok")
+          PY

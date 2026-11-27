@@ -1,0 +1,121 @@
+name: Hardware in the loop
+
+# Self-hosted only. This workflow talks to real boards on the rig Pi.
+# It must not run for pull requests or for anyone except the repository owner.
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: App directory name under the apps directory
+        required: true
+        default: mosaic_block_diagram
+        type: string
+      board:
+        description: Zephyr board id passed to west -b
+        required: true
+        default: custom_nrf52832
+        type: string
+      apps_dir:
+        description: Absolute apps directory. Empty uses $HOME/zephyrproject/apps on the runner.
+        required: false
+        default: ""
+        type: string
+      verify_camera:
+        description: Run camera verification after a successful flash
+        required: true
+        default: true
+        type: boolean
+      camera_frames:
+        description: Frame count passed to capture_avg
+        required: true
+        default: "4"
+        type: string
+      camera_shutter:
+        description: Optional capture_avg shutter. Empty omits shutter and gain.
+        required: false
+        default: ""
+        type: string
+      camera_gain:
+        description: Optional capture_avg gain. Used only when shutter is set.
+        required: false
+        default: ""
+        type: string
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hil-eink-mosaic
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  hil:
+    name: Build, flash, and verify
+    if: github.repository_owner == 'cydrollinger1968' && github.actor == 'cydrollinger1968'
+    runs-on: [self-hosted, linux, ARM64, eink-mosaic]
+    env:
+      HIL_APP: ${{ github.event_name == 'workflow_dispatch' && inputs.app || 'mosaic_block_diagram' }}
+      HIL_BOARD: ${{ github.event_name == 'workflow_dispatch' && inputs.board || 'custom_nrf52832' }}
+      EINK_APPS_DIR: ${{ github.event_name == 'workflow_dispatch' && inputs.apps_dir || '' }}
+      HIL_CAMERA_FRAMES: ${{ github.event_name == 'workflow_dispatch' && inputs.camera_frames || '4' }}
+      HIL_CAMERA_SHUTTER: ${{ github.event_name == 'workflow_dispatch' && inputs.camera_shutter || '' }}
+      HIL_CAMERA_GAIN: ${{ github.event_name == 'workflow_dispatch' && inputs.camera_gain || '' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Build
+        run: scripts/hil/build.sh
+
+      - name: Check FICR before flash
+        run: scripts/hil/ficr_check.sh
+
+      - name: Back up current flash
+        run: scripts/hil/backup.sh
+
+      - name: Flash and verify image
+        run: scripts/hil/flash.sh
+
+      - name: Camera verification
+        if: success() && (github.event_name != 'workflow_dispatch' || inputs.verify_camera)
+        run: scripts/hil/verify_camera.sh
+
+      - name: Restore flash from local backups
+        if: failure()
+        run: scripts/hil/rollback.sh
+
+      - name: Stage public artifacts
+        if: always()
+        run: |
+          set -euo pipefail
+          run_dir="${HIL_RUN_DIR:-${HOME}/hil-runs/${GITHUB_RUN_ID}}"
+          dest="${GITHUB_WORKSPACE}/hil-public"
+          rm -rf "${dest}"
+          mkdir -p "${dest}/logs" "${dest}/hashes" "${dest}/camera"
+          if [[ -d ${run_dir}/logs ]]; then
+            cp -a "${run_dir}/logs/." "${dest}/logs/"
+          fi
+          if [[ -d ${run_dir}/hashes ]]; then
+            cp -a "${run_dir}/hashes/." "${dest}/hashes/"
+          fi
+          if [[ -d ${run_dir}/camera ]]; then
+            cp -a "${run_dir}/camera/." "${dest}/camera/"
+          fi
+          find "${dest}" -name '*.bin' -delete
+
+      - name: Upload logs, hashes, and camera images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-${{ github.run_id }}
+          path: hil-public
+          if-no-files-found: warn

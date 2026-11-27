@@ -16,6 +16,10 @@ The same Raspberry Pi Zephyr environment also hosts Cy's custom **nRF52832 e-ink
 
 The four-panel e-ink mosaic prototype is documented in [hardware/README.md](hardware/README.md): Raspberry Pi 5 host `zephyr` on Ubuntu 24.04, a custom JLCPCB motherboard, and four nRF52832 + GDEY042T81 boards. The slot map, pinout, block diagram, mosaic art, and OpenOCD configs are in that directory.
 
+## CI
+
+Hardware-in-the-loop build and flash of the four panels runs only on a self-hosted runner attached to the rig. The pipeline, the security limits, and the runner setup are in [ci/README.md](ci/README.md). Script lint runs on pull requests and does not touch the boards.
+
 ![Descriptive alt text for the image](wiring.png)
 
 

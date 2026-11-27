@@ -1,0 +1,28 @@
+{
+  "ficr_address": "0x100000A4",
+  "flash_base": "0x00000000",
+  "flash_bytes": "0x80000",
+  "order": ["B", "A", "C", "D"],
+  "slots": {
+    "B": {
+      "ficr": "944d9a60",
+      "cfg": "pi5-nrf52-swd-b.cfg",
+      "tile": 0
+    },
+    "A": {
+      "ficr": "f15c2668",
+      "cfg": "pi5-nrf52-swd.cfg",
+      "tile": 1
+    },
+    "C": {
+      "ficr": "b0749cd0",
+      "cfg": "pi5-nrf52-swd-c.cfg",
+      "tile": 2
+    },
+    "D": {
+      "ficr": "4bdf4558",
+      "cfg": "pi5-nrf52-swd-d.cfg",
+      "tile": 3
+    }
+  }
+}

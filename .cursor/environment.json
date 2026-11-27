@@ -1,0 +1,4 @@
+{
+  "name": "Complete Zephyr Development from Raspberry Pi",
+  "install": "bash .cursor/install-cloud-agent.sh"
+}

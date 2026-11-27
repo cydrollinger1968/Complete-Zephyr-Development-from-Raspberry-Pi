@@ -27,7 +27,7 @@ Tile order is B, A, C, D (tiles 0, 1, 2, 3). OpenOCD uses the configs in [hardwa
 | Input | Default | Meaning |
 |-------|---------|---------|
 | `app` | `mosaic_block_diagram` | Directory name under the apps directory |
-| `board` | `custom_nrf52832` | `west -b` board id. Change this if the app's board name differs. |
+| `board` | `nrf52dk/nrf52832` | `west -b` board id used by the mosaic apps. |
 | `apps_dir` | empty, so `$HOME/zephyrproject/apps` | Absolute path on the runner |
 | `verify_camera` | true | Set false to skip the camera |
 | `camera_frames` | `4` | First argument to `capture_avg` |
@@ -77,7 +77,7 @@ Do this once, as the normal user that already builds Zephyr and can open the pan
 
    `svc.sh install` may ask for administrator rights once to register a systemd unit. The unit's user must be the account from step 1, not root. The registration token is typed into `config.sh` when GitHub shows it. It is not stored in this repo.
 5. The runner should show Idle with labels `self-hosted`, `linux`, `ARM64`, and `eink-mosaic`.
-6. Run the workflow once by hand (Actions, Hardware in the loop, Run workflow) before relying on pushes. Set `board` to the west board id the app actually uses if it is not `custom_nrf52832`. Set `verify_camera` false until `$HOME/capture_avg` is in place, or leave it true: a missing tool is skipped.
+6. Run the workflow once by hand (Actions, Hardware in the loop, Run workflow) before relying on pushes. The default board is `nrf52dk/nrf52832`. Set `verify_camera` false until `$HOME/capture_avg` is in place, or leave it true: a missing tool is skipped.
 
 A push to `main` by the owner queues a hardware run. Register the runner before merging workflow changes you want exercised, or cancel the queued run if the runner is not ready yet.
 

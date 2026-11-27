@@ -10,7 +10,7 @@ hil_prepare
 hil_require_cmd python3
 
 HIL_APP=${HIL_APP:-mosaic_block_diagram}
-HIL_BOARD=${HIL_BOARD:-custom_nrf52832}
+HIL_BOARD=${HIL_BOARD:-nrf52dk/nrf52832}
 EINK_APPS_DIR=${EINK_APPS_DIR:-${HOME}/zephyrproject/apps}
 
 if [[ ! ${HIL_APP} =~ ^[A-Za-z0-9._-]+$ ]]; then

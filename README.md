@@ -12,6 +12,10 @@ Cutting-edge automated setup for developing Zephyr RTOS applications hosted on a
 
 The same Raspberry Pi Zephyr environment also hosts Cy's custom **nRF52832 e-ink display lab** (splash mosaic, NFC Type 2, BLE UI sync, Hubble Network page). That path is documented in [Custom nRF52832 e-ink lab](#custom-nrf52832-e-ink-lab-progress). The original nRF52840 dongle / MCUboot / `install100.sh` story below remains the on-ramp.
 
+## Hardware
+
+The four-panel e-ink mosaic prototype is documented in [hardware/README.md](hardware/README.md): Raspberry Pi 5 host `zephyr` on Ubuntu 24.04, a custom JLCPCB motherboard, and four nRF52832 + GDEY042T81 boards. The slot map, pinout, block diagram, mosaic art, and OpenOCD configs are in that directory.
+
 ![Descriptive alt text for the image](wiring.png)
 
 
@@ -85,16 +89,16 @@ Lab application path:
 
 Flashing uses **linuxgpiod** on **gpiochip4** and OpenOCD. **SRST is often disabled** (blocked halt); RST pins in the mosaic wiring are frequently left off.
 
-Example mosaic wiring (800×600 logical canvas → four 400×300 e-ink tiles):
+Example mosaic wiring (800×600 logical canvas → four 400×300 e-ink tiles). Tile numbers are the quadrants in reading order. Positions match [hardware/slot-map.md](hardware/slot-map.md):
 
 | Position | Tile | SWDIO | SWCLK | RST | OpenOCD config |
 |----------|------|-------|-------|-----|----------------|
-| C — top-left | TILE0 | 13 | 19 | 26, often off | `pi5-nrf52-swd-c.cfg` |
-| D — top-right | TILE1 | 22 | 27 | 17, often off | `pi5-nrf52-swd-d.cfg` |
-| B — bottom-left | TILE2 | 16 | 20 | 21, often off | `pi5-nrf52-swd-b.cfg` |
-| A — bottom-right | TILE3 | 24 | 25 | — | `pi5-nrf52-swd.cfg` |
+| B — top-left | TILE0 | 16 | 20 | 21, commented out | `pi5-nrf52-swd-b.cfg` |
+| A — top-right | TILE1 | 24 | 25 | 23, commented out | `pi5-nrf52-swd.cfg` |
+| C — bottom-left | TILE2 | 13 | 19 | 26, commented out | `pi5-nrf52-swd-c.cfg` |
+| D — bottom-right | TILE3 | 22 | 27 | 17, commented out | `pi5-nrf52-swd-d.cfg` |
 
-Board A reuses the same GPIO 24 / 25 SWD pair documented for the nRF52840 dongle.
+Board A reuses the same GPIO 24 / 25 SWD pair documented for the nRF52840 dongle. Copies of the configs are in [hardware/openocd/](hardware/openocd/). The motherboard silkscreen is swapped top-to-bottom relative to these letters; read FICR before flashing.
 
 ### Splash UX
 
